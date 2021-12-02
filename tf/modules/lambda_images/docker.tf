@@ -1,7 +1,7 @@
 # Build get-data Docker image and upload to ECR
 module "lambda_docker_image" {
   source           = "terraform-aws-modules/lambda/aws//modules/docker-build"
-  version          = "2.7.0"
+  version          = "2.27.1"
   create_ecr_repo  = false
   ecr_repo         = var.ecr_repo
   image_tag        = var.lambda_image_tag

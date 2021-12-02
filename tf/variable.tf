@@ -51,23 +51,13 @@ variable "availability_zones" {
   type    = list(string)
 }
 
-variable "ecr-repo" {
-  default = "nps-starter-upserter"
-  type    = string
-}
-
-variable "database-name" {
-  default = "starter"
+variable "lets-chat-ecr-repo" {
+  default = "mighty-real-lets-chat"
   type    = string
 }
 
 variable "region" {
   default = "us-west-2"
-  type    = string
-}
-
-variable "etl_target_schema" {
-  default = "blue"
   type    = string
 }
 
@@ -81,13 +71,8 @@ variable "env" {
   type    = string
 }
 
-variable "migrations-lambda-timeout" {
-  default = 180
-  type    = number
-}
-
-variable "upserter-lambda-timeout" {
-  default = 180
+variable "lets-chat-lambda-timeout" {
+  default = 60
   type    = number
 }
 
@@ -95,7 +80,7 @@ variable "aws_tags" {
   default = {
     BusinessApplicationNumber = "Foo"
     ApplicationServiceNumber  = "Bar"
-    Application               = "Starter"
+    Application               = "MightyReal"
   }
   type = map(string)
 }

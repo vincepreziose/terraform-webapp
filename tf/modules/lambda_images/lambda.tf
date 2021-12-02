@@ -1,6 +1,6 @@
 module "lambda_function_from_container_image" {
   source                            = "terraform-aws-modules/lambda/aws"
-  version                           = "2.5.0"
+  version                           = "2.27.1"
   function_name                     = var.function_name
   description                       = var.description
   create_package                    = false

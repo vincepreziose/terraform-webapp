@@ -1,6 +1,4 @@
-# Use base image tag with patch to resolve
-# ECR scan vulnerabilities
-FROM amazon/aws-lambda-python:3.8.2021.08.07.09
+FROM amazon/aws-lambda-python:3.9
 
 # Install poetry
 RUN pip install poetry
@@ -10,7 +8,6 @@ COPY poetry.lock pyproject.toml ${LAMBDA_TASK_ROOT}/
 
 # Copy function code
 COPY app.py ${LAMBDA_TASK_ROOT}/
-COPY *.sql ${LAMBDA_TASK_ROOT}/
 
 # Need to set the right permissions for lambda to execute. See https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
 RUN chmod -R 755 ${LAMBDA_TASK_ROOT}
