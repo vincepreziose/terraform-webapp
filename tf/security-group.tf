@@ -131,9 +131,9 @@ resource "aws_security_group" "database-security-group" {
 }
 
 # Create Security Group for Lambda and API
-resource "aws_security_group" "lets-chat-lambda-sg" {
-  name        = "lets-chat-lambda-sg"
-  description = "Security group for Lets Chat Lambda"
+resource "aws_security_group" "might-real-wide-open-sg" {
+  name        = "might-real-wide-open-sg"
+  description = "Mighty Real Wide Open SG"
   vpc_id      = aws_vpc.vpc.id
   ingress {
     from_port = 0

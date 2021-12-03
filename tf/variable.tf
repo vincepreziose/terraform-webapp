@@ -94,3 +94,8 @@ variable "cidr_exception" {
   type    = list(string)
   default = ["172.16.0.0/12", "192.168.0.0/16", "10.0.0.0/8"]
 }
+
+variable "elb_account_id" {
+  default = "797873946194"
+  type    = string
+}

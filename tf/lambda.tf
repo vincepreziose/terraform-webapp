@@ -3,7 +3,7 @@ module "lets-chat-lambda" {
   function_name      = "lets-chat"
   description        = "Handle Lets Chat requests from Mighty Real Website"
   source_path        = "../function/lets_chat"
-  security_group_ids = [aws_security_group.lets-chat-lambda-sg.id]
+  security_group_ids = [aws_security_group.might-real-wide-open-sg.id]
   subnet_ids         = [aws_subnet.private-subnet-1.id, aws_subnet.private-subnet-2.id]
   ecr_repo           = var.lets-chat-ecr-repo
   lambda_image_tag   = "lets-chat-1"
