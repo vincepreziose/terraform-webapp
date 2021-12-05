@@ -13,6 +13,11 @@ output "function_name" {
   value       = module.lambda_function_from_container_image.lambda_function_name
 }
 
+output "lambda_function_arn" {
+  description = "The ARN of the Lambda Function"
+  value       = module.lambda_function_from_container_image.lambda_function_arn
+}
+
 output "lambda_function_invoke_arn" {
   description = "Lambda invocation ARN"
   value       = module.lambda_function_from_container_image.lambda_function_invoke_arn

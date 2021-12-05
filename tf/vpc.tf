@@ -77,7 +77,7 @@ resource "aws_route_table_association" "public-subnet-2-route-table-association"
 
 # Create Private Subnet 1
 # terraform aws create subnet
-resource "aws_subnet" "private-subnet-1" {
+resource "aws_subnet" "private_subnet_1" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private-subnet-1-cidr
   availability_zone       = "us-west-2a"
@@ -90,7 +90,7 @@ resource "aws_subnet" "private-subnet-1" {
 
 # Create Private Subnet 2
 # terraform aws create subnet
-resource "aws_subnet" "private-subnet-2" {
+resource "aws_subnet" "private_subnet_2" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private-subnet-2-cidr
   availability_zone       = "us-west-2b"

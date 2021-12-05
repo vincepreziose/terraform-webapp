@@ -1,10 +1,12 @@
+###################
 # Remote State
-resource "aws_s3_bucket" "remote_state" {
-  bucket = "mighty-real-tf-state"
+###################
+data "aws_s3_bucket" "remote_state" {
+  bucket = "mightyreal-tf-state"
 }
 
 resource "aws_s3_bucket_policy" "remote_state" {
-  bucket = aws_s3_bucket.remote_state.id
+  bucket = data.aws_s3_bucket.remote_state.id
   policy = jsonencode({
     Version = "2012-10-17"
     Id      = "REMOTESTATE"
@@ -15,7 +17,7 @@ resource "aws_s3_bucket_policy" "remote_state" {
           "AWS" : "arn:aws:iam::036512427359:user/terraform-user"
         },
         "Action" : "s3:ListBucket",
-        "Resource" : aws_s3_bucket.remote_state.arn
+        "Resource" : data.aws_s3_bucket.remote_state.arn
       },
       {
         "Effect" : "Allow",
@@ -23,23 +25,26 @@ resource "aws_s3_bucket_policy" "remote_state" {
           "AWS" : "arn:aws:iam::036512427359:user/terraform-user"
         },
         "Action" : ["s3:GetObject", "s3:PutObject"],
-        "Resource" : "${aws_s3_bucket.remote_state.arn}/*"
+        "Resource" : "${data.aws_s3_bucket.remote_state.arn}/*"
       }
     ]
   })
 }
 
 
-# Public ALB Access Logs
-resource "aws_s3_bucket" "mighty-real-public-alb-access-logs" {
-  bucket = "mighty-real-public-alb-access-logs"
+###################
+# Access Logs
+###################
+resource "aws_s3_bucket" "access_logs" {
+  bucket = "mightyreal-access-logs"
 }
 
-resource "aws_s3_bucket_policy" "alb-access-logs-policy" {
-  bucket = aws_s3_bucket.mighty-real-public-alb-access-logs.id
+resource "aws_s3_bucket_policy" "access_logs" {
+  bucket = aws_s3_bucket.access_logs.id
+
   policy = jsonencode({
     Version = "2012-10-17"
-    Id      = "PUBLICALBACCESSLOGBUCKET"
+    Id      = "PUBLICACCESSLOGBUCKET"
     Statement = [
       {
         "Effect" : "Allow",
@@ -47,7 +52,7 @@ resource "aws_s3_bucket_policy" "alb-access-logs-policy" {
           "AWS" : "arn:aws:iam::${var.elb_account_id}:root"
         },
         "Action" : "s3:PutObject",
-        "Resource" : "${aws_s3_bucket.mighty-real-public-alb-access-logs.arn}/*"
+        "Resource" : "${aws_s3_bucket.access_logs.arn}/*"
       },
       {
         "Effect" : "Allow",
@@ -55,7 +60,7 @@ resource "aws_s3_bucket_policy" "alb-access-logs-policy" {
           "Service" : "delivery.logs.amazonaws.com"
         },
         "Action" : "s3:PutObject",
-        "Resource" : "${aws_s3_bucket.mighty-real-public-alb-access-logs.arn}/*",
+        "Resource" : "${aws_s3_bucket.access_logs.arn}/*",
         "Condition" : {
           "StringEquals" : {
             "s3:x-amz-acl" : "bucket-owner-full-control"
@@ -68,7 +73,7 @@ resource "aws_s3_bucket_policy" "alb-access-logs-policy" {
           "Service" : "logdelivery.elb.amazonaws.com"
         },
         "Action" : "s3:PutObject",
-        "Resource" : "${aws_s3_bucket.mighty-real-public-alb-access-logs.arn}/*",
+        "Resource" : "${aws_s3_bucket.access_logs.arn}/*",
         "Condition" : {
           "StringEquals" : {
             "s3:x-amz-acl" : "bucket-owner-full-control"
@@ -81,7 +86,7 @@ resource "aws_s3_bucket_policy" "alb-access-logs-policy" {
           "Service" : "delivery.logs.amazonaws.com"
         },
         "Action" : "s3:GetBucketAcl",
-        "Resource" : aws_s3_bucket.mighty-real-public-alb-access-logs.arn
+        "Resource" : aws_s3_bucket.access_logs.arn
       }
     ]
   })

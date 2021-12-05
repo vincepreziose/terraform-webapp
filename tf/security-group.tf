@@ -131,7 +131,7 @@ resource "aws_security_group" "database-security-group" {
 }
 
 # Create Security Group for Lambda and API
-resource "aws_security_group" "might-real-wide-open-sg" {
+resource "aws_security_group" "wide_open_sg" {
   name        = "might-real-wide-open-sg"
   description = "Mighty Real Wide Open SG"
   vpc_id      = aws_vpc.vpc.id

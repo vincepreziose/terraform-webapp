@@ -1,3 +1,45 @@
+variable "alb_create_timeout" {
+  description = "Timeout value when creating the ALB."
+  type        = string
+  default     = "10m"
+}
+
+variable "alb_delete_timeout" {
+  description = "Timeout value when deleting the ALB."
+  type        = string
+  default     = "10m"
+}
+
+variable "alb_update_timeout" {
+  description = "Timeout value when updating the ALB."
+  type        = string
+  default     = "10m"
+}
+
+variable "alb_enable_cross_zone_load_balancing" {
+  description = "Indicates whether cross zone load balancing should be enabled in application load balancers."
+  type        = bool
+  default     = false
+}
+
+variable "alb_drop_invalid_header_fields" {
+  description = "Indicates whether invalid header fields are dropped in application load balancers. Defaults to false."
+  type        = bool
+  default     = false
+}
+
+variable "alb_idle_timeout" {
+  description = "The time in seconds that the connection is allowed to be idle."
+  type        = number
+  default     = 60
+}
+
+variable "alb_ip_address_type" {
+  description = "The type of IP addresses used by the subnets for your load balancer. The possible values are ipv4 and dualstack."
+  type        = string
+  default     = "ipv4"
+}
+
 variable "vpc-cidr" {
   default     = "10.0.0.0/16"
   description = "VPC CIDR Block"
@@ -51,8 +93,8 @@ variable "availability_zones" {
   type    = list(string)
 }
 
-variable "lets-chat-ecr-repo" {
-  default = "mighty-real-lets-chat"
+variable "lets_chat_ecr_repo" {
+  default = "mrd-lets-chat-lambda"
   type    = string
 }
 
@@ -71,7 +113,7 @@ variable "env" {
   type    = string
 }
 
-variable "lets-chat-lambda-timeout" {
+variable "lets_chat_lambda_timeout" {
   default = 60
   type    = number
 }

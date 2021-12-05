@@ -58,7 +58,7 @@ resource "aws_route_table" "private-route-table-1" {
 # Associate Private Subnet 1 with "Private Route Table 1"
 # terraform aws associate subnet with route table
 resource "aws_route_table_association" "private-subnet-1-route-table-association" {
-  subnet_id      = aws_subnet.private-subnet-1.id
+  subnet_id      = aws_subnet.private_subnet_1.id
   route_table_id = aws_route_table.private-route-table-1.id
 }
 
@@ -87,7 +87,7 @@ resource "aws_route_table" "private-route-table-2" {
 # Associate Private Subnet 2 with "Private Route Table 2"
 # terraform aws associate subnet with route table
 resource "aws_route_table_association" "private-subnet-2-route-table-association" {
-  subnet_id      = aws_subnet.private-subnet-2.id
+  subnet_id      = aws_subnet.private_subnet_2.id
   route_table_id = aws_route_table.private-route-table-2.id
 }
 
