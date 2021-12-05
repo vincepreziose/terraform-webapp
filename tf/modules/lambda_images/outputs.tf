@@ -8,9 +8,14 @@ output "lambda_cloudwatch_log_group_arn" {
   value       = module.lambda_function_from_container_image.lambda_cloudwatch_log_group_arn
 }
 
-output "function_name" {
+output "lambda_function_name" {
   description = "Function name of the lambda"
   value       = module.lambda_function_from_container_image.lambda_function_name
+}
+
+output "lambda_function_version" {
+  description = "Version of the lambda"
+  value       = module.lambda_function_from_container_image.lambda_function_version
 }
 
 output "lambda_function_arn" {

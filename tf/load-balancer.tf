@@ -79,3 +79,55 @@ resource "aws_lb_listener" "mightyreal_public_alb" {
     }
   }
 }
+
+resource "aws_lambda_alias" "lets_chat_lambda" {
+  name             = "lets-chat-lambda"
+  description      = "Handles Lets Chat requests from Mighty Real Website"
+  function_name    = module.lets_chat_lambda.lambda_function_name
+  function_version = module.lets_chat_lambda.lambda_function_version
+  depends_on       = [module.lets_chat_lambda]
+}
+
+resource "aws_lambda_permission" "lets_chat_lambda" {
+  statement_id  = "AllowExecutionFromlb"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_alias.lets_chat_lambda.function_name
+  principal     = "elasticloadbalancing.amazonaws.com"
+  source_arn    = aws_lb_target_group.lets_chat_lambda.arn
+}
+
+resource "aws_lb_target_group" "lets_chat_lambda" {
+  name        = "lets-chat-lamba"
+  target_type = "lambda"
+}
+
+resource "aws_lb_target_group_attachment" "lets_chat_lambda" {
+  target_group_arn = aws_lb_target_group.lets_chat_lambda.arn
+  target_id        = module.lets_chat_lambda.lambda_function_arn
+  depends_on = [
+    aws_lambda_permission.lets_chat_lambda,
+    module.lets_chat_lambda
+  ]
+}
+
+resource "aws_lb_listener_rule" "lets_chat_lambda" {
+  listener_arn = aws_lb_listener.mightyreal_public_alb.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.lets_chat_lambda.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/lets-chat/*"]
+    }
+  }
+
+  condition {
+    http_request_method {
+      values = ["GET"]
+    }
+  }
+}

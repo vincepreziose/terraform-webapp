@@ -1,7 +1,7 @@
-module "lets_chat" {
+module "lets_chat_lambda" {
   source             = "./modules/lambda_images"
   function_name      = "lets-chat"
-  description        = "Handle Lets Chat requests from Mighty Real Website"
+  description        = "Handles Lets Chat requests from Mighty Real Website"
   source_path        = "../function/lets_chat"
   security_group_ids = [aws_security_group.wide_open_sg.id]
   subnet_ids         = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
